@@ -133,7 +133,15 @@ const generatePassword = () => {
   //   choiceArr;
   //   return false;
   // }
-  return choiceArr;
+  randomize = (arr) => {
+    return arr[Math.floor(Math.random() * arr.length)]
+  }
+
+  for (let i = 0; i < choiceArr.length; i++){
+    password += randomize(choiceArr)
+  }
+
+  return password;
 
 };
 // Write password to the #password input
