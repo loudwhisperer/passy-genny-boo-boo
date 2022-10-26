@@ -1,5 +1,6 @@
 // Assignment Code
 var generateBtn = document.querySelector("#generate");
+//set global variables
 const generatePassword = () => {
   let password = "";
   let choiceArr = [];
@@ -61,6 +62,7 @@ const generatePassword = () => {
     "Z",
   ];
   const specChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"];
+  //ask questions
   let passwordTotal = prompt(
     "Please Choose a number of characters for your password between 8-128"
   );
@@ -79,6 +81,7 @@ const generatePassword = () => {
   const confirmSpec = confirm(
     "Would you like special characters in your password?"
   );
+  //check conditions
   if (confirmLower) {
     choiceArr = choiceArr.concat(letters);
     password += randomize(letters);
@@ -105,7 +108,7 @@ const generatePassword = () => {
     );
     return
   }
-
+  //generate password
   function randomize(arr){
     return arr[Math.floor(Math.random() * arr.length)];
   };
