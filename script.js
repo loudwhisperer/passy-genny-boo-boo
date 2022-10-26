@@ -1,22 +1,4 @@
 // Assignment Code
-// let passwordTotal;
-// const lengthMessage = () => {
-//   prompt(
-//     "Please Choose a number of characters for your password between 8-128"
-//   );
-//   if (isNaN(passwordTotal)) {
-//     alert("Please enter a valid number between 8-128");
-//     passwordTotal = lengthMessage();
-//   } else if (passwordTotal < 8) {
-//     alert("Please enter a number greater than 8 characters");
-//     passwordTotal = lengthMessage();
-//   } else if (passwordTotal > 128) {
-//     alert("Please enter a number less than 128 characters");
-//     passwordTotal = lengthMessage();
-//   }
-// };
-
-    
 var generateBtn = document.querySelector("#generate");
 const generatePassword = () => {
   let password = "";
@@ -79,70 +61,60 @@ const generatePassword = () => {
     "Z",
   ];
   const specChar = ["!", "@", "#", "$", "%", "^", "&", "*", "(", ")"];
-  let passwordTotal;
-  const lengthMessage = () => {
-    prompt(
-      "Please Choose a number of characters for your password between 8-128"
-    );
-    if ((passwordTotal = typeOf(number))) {
-      passwordTotal = lengthMessage();
-    } else if (isNaN(passwordTotal)) {
-      alert("Please enter a valid number between 8-128");
-      passwordTotal = lengthMessage();
-    } else if (passwordTotal < 8) {
-      alert("Please enter a number greater than 8 characters");
-      passwordTotal = lengthMessage();
-    } else if (passwordTotal > 128) {
-      alert("Please enter a number less than 128 characters");
-      passwordTotal = lengthMessage();
-    }
-  };
-   if (confirm("Would you like lower case letters in your password?")) {
-     choiceArr = choiceArr.concat(letters);
-   } else {
-     choiceArr;
-     return false;
-   }
-   if (confirm("Would you like upper case letters in your password?")) {
-     choiceArr = choiceArr.concat(capLetters);
-   } else {
-     choiceArr;
-     return false;
-   }
-  if (confirm("Would you like numbers in your password?")) {
-    choiceArr = choiceArr.concat(nums);
-  } else {
-    choiceArr;
-    return false;
+  let passwordTotal = prompt(
+    "Please Choose a number of characters for your password between 8-128"
+  );
+
+  if (passwordTotal < 8 || passwordTotal > 128) {
+    alert("Please enter a vaild number between 8 and 128");
+    return;
   }
-  if (confirm("Would you like special characters in your password?")) {
+  const confirmLower = confirm(
+    "Would you like lower case letters in your password?"
+  );
+  const confirmUpper = confirm(
+    "Would you like upper case letters in your password?"
+  );
+  const confirmNumber = confirm("Would you like numbers in your password?");
+  const confirmSpec = confirm(
+    "Would you like special characters in your password?"
+  );
+  if (confirmLower) {
+    choiceArr = choiceArr.concat(letters);
+    password += randomize(letters);
+    passwordTotal--;
+  }
+  if (confirmUpper) {
+    choiceArr = choiceArr.concat(capLetters);
+    password += randomize(capLetters);
+    passwordTotal--;
+  }
+  if (confirmNumber) {
+    choiceArr = choiceArr.concat(nums);
+    password += randomize(nums);
+    passwordTotal--;
+  }
+  if (confirmSpec) {
     choiceArr = choiceArr.concat(specChar);
-  } else {
-     choiceArr;
-    return false;
-   }
-  // if (confirm("Would you like lower case letters in your password?")){
-  //   choiceArr = choiceArr.concat(letters)
-  // } else if (confirm("Would you like upper case letters in your password?")) {
-  //   choiceArr = choiceArr.concat(capLetters);
-  // } else if (confirm("Would you like numbers in your password?")) {
-  //   choiceArr = choiceArr.concat(nums);
-  // } else if (confirm("Would you like special characters in your password?")) {
-  //   choiceArr = choiceArr.concat(specChar);
-  // } else {
-  //   choiceArr;
-  //   return false;
-  // }
-  randomize = (arr) => {
-    return arr[Math.floor(Math.random() * arr.length)]
+    password += randomize(specChar);
+    passwordTotal--;
+  }
+  if (!confirmLower && !confirmUpper && !confirmNumber && !confirmSpec) {
+    alert(
+      "This password contains no characters please go back and add something"
+    );
+    return
   }
 
-  for (let i = 0; i < choiceArr.length; i++){
-    password += randomize(choiceArr)
+  function randomize(arr){
+    return arr[Math.floor(Math.random() * arr.length)];
+  };
+
+  for (let i = 0; i < passwordTotal; i++) {
+    password += randomize(choiceArr);
   }
 
   return password;
-
 };
 // Write password to the #password input
 function writePassword() {
